@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💕 Una Pregunta Especial 💕</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            background: white;
+            border-radius: 30px;
+            padding: 40px 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+            position: relative;
+        }
+
+        .hearts {
+            position: absolute;
+            top: -20px;
+            left: 0;
+            right: 0;
+            font-size: 40px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        h1 {
+            color: #e91e63;
+            font-size: 2em;
+            margin-bottom: 20px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .question {
+            font-size: 1.5em;
+            color: #333;
+            margin: 30px 0;
+            font-weight: bold;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        #yesBtn {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 15px 40px;
+        }
+
+        #yesBtn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(245, 87, 108, 0.4);
+        }
+
+        #noBtn {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            color: #666;
+            padding: 10px 30px;
+        }
+
+        #noBtn:hover {
+            transform: scale(0.95);
+        }
+
+        .sad-cat {
+            display: none;
+            margin: 20px 0;
+            animation: shake 0.5s;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .sad-cat img {
+            width: 150px;
+            border-radius: 20px;
+        }
+
+        .sad-message {
+            font-size: 1.3em;
+            color: #e91e63;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        .invitation {
+            display: none;
+            animation: fadeIn 1s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .invitation-card {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 30px;
+            border-radius: 20px;
+            margin: 20px 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .invitation h2 {
+            color: #c0392b;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .invitation-details {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            color: #333;
+        }
+
+        .invitation-details p {
+            font-size: 1.2em;
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+
+        .date {
+            font-size: 1.5em;
+            color: #e91e63;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+
+        .love-message {
+            font-size: 1.8em;
+            color: #c0392b;
+            margin-top: 20px;
+            font-weight: bold;
+            font-style: italic;
+        }
+
+        .hearts-animation {
+            font-size: 30px;
+            margin: 15px 0;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.2); }
+            50% { transform: scale(1); }
+            75% { transform: scale(1.2); }
+        }
+
+        @media (max-width: 500px) {
+            h1 { font-size: 1.5em; }
+            .question { font-size: 1.2em; }
+            .btn { font-size: 1em; }
+            .invitation h2 { font-size: 1.5em; }
+            .invitation-details p { font-size: 1em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hearts">🐱 🧡 🐱</div>
+        
+        <div id="questionScreen">
+            <h1>🐱 Una Pregunta Especial 🐱</h1>
+            <p class="question">¿Quieres ser mi San Valentín?</p>
+            
+            <div class="buttons">
+                <button class="btn" id="yesBtn" onclick="showInvitation()">
+                    ¡Sí! 🐱
+                </button>
+                <button class="btn" id="noBtn" onclick="handleNo()">
+                    No
+                </button>
+            </div>
+
+            <div class="sad-cat" id="sadCat">
+               <img src="gatito.jpg" alt="Gatito triste">
+                <p class="sad-message">🥺 Piénsalo de nuevo...</p>
+            </div>
+        </div>
+
+        <div class="invitation" id="invitation">
+            <div class="invitation-card">
+                <h2>🐱 ¡Dijiste que Sí! 🐱</h2>
+                <div class="hearts-animation">🐱 🧡 🐱 🧡 🐱</div>
+                
+                <div class="invitation-details">
+                    <p><strong>📅 Fecha:</strong></p>
+                    <p class="date">14 de Febrero, 2026</p>
+                    
+                    <p><strong>🕖 Hora:</strong></p>
+                    <p class="date">7:00 PM</p>
+                    
+                    <p><strong>📍 Lugar:</strong></p>
+                    <p>Paso por ti a tu casa, princesa ✨</p>
+                    
+                    <p><strong>👗 Código de vestimenta:</strong></p>
+                    <p>¡Ponte guapa! ✨</p>
+                </div>
+
+                <p class="love-message">Te amo, Naranjosa 🧡</p>
+                <div class="hearts-animation">🐱 🧡 🐱</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let noClickCount = 0;
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const sadCat = document.getElementById('sadCat');
+
+        function handleNo() {
+            noClickCount++;
+            
+            // Mostrar gatito triste
+            sadCat.style.display = 'block';
+            setTimeout(() => {
+                sadCat.style.display = 'none';
+            }, 2000);
+
+            // Hacer el botón SÍ más grande
+            const currentSize = 15 + (noClickCount * 5);
+            const currentPadding = 40 + (noClickCount * 10);
+            yesBtn.style.padding = `${currentPadding}px ${currentPadding + 20}px`;
+            yesBtn.style.fontSize = `${1.2 + (noClickCount * 0.2)}em`;
+
+            // Hacer el botón NO más pequeño
+            const noSize = Math.max(10 - (noClickCount * 2), 5);
+            const noPadding = Math.max(30 - (noClickCount * 3), 10);
+            noBtn.style.padding = `${noPadding}px ${noPadding + 10}px`;
+            noBtn.style.fontSize = `${Math.max(1.2 - (noClickCount * 0.1), 0.6)}em`;
+
+            // Después de 5 clicks, hacer el botón NO casi imposible de clickear
+            if (noClickCount >= 5) {
+                noBtn.style.padding = '5px 10px';
+                noBtn.style.fontSize = '0.5em';
+                noBtn.style.opacity = '0.5';
+            }
+        }
+
+        function showInvitation() {
+            document.getElementById('questionScreen').style.display = 'none';
+            document.getElementById('invitation').style.display = 'block';
+            
+            // Confetti effect
+            createConfetti();
+        }
+
+        function createConfetti() {
+            const colors = ['#e91e63', '#f093fb', '#f5576c', '#ffd700', '#ff69b4'];
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.style.position = 'fixed';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.top = '-10px';
+                    confetti.style.width = '10px';
+                    confetti.style.height = '10px';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.borderRadius = '50%';
+                    confetti.style.pointerEvents = 'none';
+                    confetti.style.zIndex = '1000';
+                    document.body.appendChild(confetti);
+
+                    const duration = 3000 + Math.random() * 2000;
+                    const animation = confetti.animate([
+                        { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
+                        { transform: `translateY(${window.innerHeight + 20}px) rotate(${360 * Math.random()}deg)`, opacity: 0 }
+                    ], {
+                        duration: duration,
+                        easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+                    });
+
+                    animation.onfinish = () => confetti.remove();
+                }, i * 50);
+            }
+        }
+    </script>
+</body>
+</html>
